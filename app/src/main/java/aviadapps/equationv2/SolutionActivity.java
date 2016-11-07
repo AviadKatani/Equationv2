@@ -5,6 +5,8 @@ import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +15,8 @@ import android.widget.TextView;
 public class SolutionActivity extends AppCompatActivity {
     Intent getIntent;
     double a, b, c;
+    WebView googleGraph;
+    String urlGraph;
     TextView validTV, solutionTV, solution2TV, aTV, bTV, cTV;
     boolean isValid;
     double solution, solution2, calc;
@@ -30,7 +34,9 @@ public class SolutionActivity extends AppCompatActivity {
         bTV = (TextView)findViewById(R.id.bTV);
         cTV = (TextView)findViewById(R.id.cTV);
         resultView = (ImageView)findViewById(R.id.resultView);
-
+        googleGraph = (WebView) findViewById(R.id.googleGraph);
+        googleGraph.setWebViewClient(new MyWebViewClient());
+        googleGraph.getSettings().setJavaScriptEnabled(true);
         getIntent = getIntent();
         a = getIntent.getDoubleExtra("a", 0);
         b = getIntent.getDoubleExtra("b", 0);
@@ -47,13 +53,12 @@ public class SolutionActivity extends AppCompatActivity {
             if (0 <= calc) {
                 isValid = true;
                 validTV.setText("The solution is valid!");
-                aTV.setText("a: " + a);
-                bTV.setText("b: " + b);
-                cTV.setText("c: " + c);
+                urlGraph = "https://www.google.co.il/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=" + a + "x%5E2%2" + b + "x%2B" + c;
                 // The numbers in the square are 0 <=
             } else {
                 isValid = false;
                 validTV.setText("The solution isn't valid!");
+                googleGraph.setVisibility(View.GONE);
                 solutionTV.setText("You can't square a number below 0");
                 solution2TV.setText("You can't square a number below 0");
             }
@@ -75,6 +80,7 @@ public class SolutionActivity extends AppCompatActivity {
                 solution = Double.valueOf(df.format(solution));
                 solution2 = (-b - Math.sqrt(calc)) / (2 * a);
                 solution2 = Double.valueOf(df.format(solution2));
+
                 solutionTV.setText("x1: " + solution);
                 solution2TV.setText("x2: " + solution2);
                 // Where to assign the Image
@@ -102,5 +108,13 @@ public class SolutionActivity extends AppCompatActivity {
             mIntent.putExtra("sign", isValid);
         }
         startActivity(mIntent);
+    }
+
+    private class MyWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
     }
 }
