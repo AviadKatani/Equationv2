@@ -2,9 +2,12 @@ package aviadapps.equationv2;
 
 import android.content.Intent;
 import android.media.Image;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
@@ -20,7 +23,6 @@ public class SolutionActivity extends AppCompatActivity {
     TextView validTV, solutionTV, solution2TV, aTV, bTV, cTV;
     boolean isValid;
     double solution, solution2, calc;
-    ImageView resultView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +35,7 @@ public class SolutionActivity extends AppCompatActivity {
         aTV = (TextView)findViewById(R.id.aTV);
         bTV = (TextView)findViewById(R.id.bTV);
         cTV = (TextView)findViewById(R.id.cTV);
-        resultView = (ImageView)findViewById(R.id.resultView);
         googleGraph = (WebView) findViewById(R.id.googleGraph);
-        googleGraph.setWebViewClient(new MyWebViewClient());
-        googleGraph.getSettings().setJavaScriptEnabled(true);
         getIntent = getIntent();
         a = getIntent.getDoubleExtra("a", 0);
         b = getIntent.getDoubleExtra("b", 0);
@@ -53,7 +52,11 @@ public class SolutionActivity extends AppCompatActivity {
             if (0 <= calc) {
                 isValid = true;
                 validTV.setText("The solution is valid!");
-                urlGraph = "https://www.google.co.il/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=" + a + "x%5E2%2" + b + "x%2B" + c;
+                urlGraph = "https://www.google.co.il/?gfe_rd=cr&ei=ZmAkWNy7JsOAwgLa35CADg&gws_rd=ssl#safe=strict&q=" + a + "x%5E2+%2B+" + b + "x+%2B+" + c;
+                Log.e(MainActivity.class.getSimpleName(), urlGraph);
+                googleGraph.setWebViewClient(new MyWebViewClient());
+                googleGraph.getSettings().setJavaScriptEnabled(true);
+                googleGraph.loadUrl(urlGraph);
                 // The numbers in the square are 0 <=
             } else {
                 isValid = false;

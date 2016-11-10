@@ -29,17 +29,10 @@
         android:id="@+id/validTV"
         android:layout_gravity="center_horizontal" />
 
-
-    <WebView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:id="@+id/googleGraph"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="x1: "
-        android:textSize="18dp"
         android:id="@+id/solutionTV"
         android:layout_gravity="center_horizontal" />
 
@@ -48,52 +41,45 @@
         android:layout_height="wrap_content"
         android:id="@+id/solution2TV"
         android:layout_gravity="center_horizontal"
-        android:textSize="18dp"
         android:text="x2: " />
 
-    <LinearLayout
-        android:orientation="vertical"
+    <WebView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_weight="1.00">
+        android:id="@+id/googleGraph"
+        android:layout_weight="1"
+        android:layout_height="match_parent" />
 
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/resultView"
-            android:layout_gravity="center" />
-    </LinearLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="64dp"
-        android:weightSum="1">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:gravity="center_vertical|center_horizontal" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Credits"
-            android:textSize="16dp"
+            android:gravity="start"
+            android:layout_weight="1"
             android:id="@+id/creditTV"
             android:onClick="CreditsClicked"
-            android:layout_gravity="bottom" />
+            android:textStyle="normal|bold"
+            android:textSize="20sp" />
 
         <TextView
-            android:layout_width="237dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="                                                                         "
-            android:id="@+id/spaceTV"
-            android:layout_gravity="bottom" />
-
-        <TextView
-            android:layout_width="59dp"
-            android:layout_height="wrap_content"
+            android:gravity="end"
             android:text="Main"
-            android:textSize="16dp"
+            android:layout_weight="1"
             android:id="@+id/mainTV"
             android:onClick="MainClicked"
-            android:layout_gravity="bottom" />
+            android:textStyle="normal|bold"
+            android:textSize="20sp" />
     </LinearLayout>
 </LinearLayout>
